@@ -5,6 +5,11 @@ dotenv.config();
 //import User from './models/user.model.js';
 import authRoutes from "./routes/auth.routes.js";
 import authMiddleware from "./middleware/auth.middleware.js";
+import attendanceRoutes from "./routes/attendance.routes.js";
+
+app.use("/api/attendance", attendanceRoutes);
+
+
 const app = express();
 
 app.use(cors());
