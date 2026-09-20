@@ -7,7 +7,6 @@ import authRoutes from "./routes/auth.routes.js";
 import authMiddleware from "./middleware/auth.middleware.js";
 import attendanceRoutes from "./routes/attendance.routes.js";
 
-app.use("/api/attendance", attendanceRoutes);
 
 
 const app = express();
@@ -15,13 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
-
+app.use("/api/attendance", attendanceRoutes);
 // Routes
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-
+      
 
 app.get("/protected", authMiddleware, (req, res) => {
   res.json({

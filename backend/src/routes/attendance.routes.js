@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
     "/mark",
     authMiddleware,
-    roleMiddleware(["student"]),
+    roleMiddleware(["user"]),
     markAttendance
 );
 

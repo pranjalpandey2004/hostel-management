@@ -1,10 +1,10 @@
-import e from 'express';
+
 import mongoose from 'mongoose';
 
 const attendenceSchema = new mongoose.Schema({
     studentId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student',
+        ref: 'user',
         required: true
     },
     date: {
@@ -19,6 +19,7 @@ const attendenceSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['present', 'late'],
+        
         required: true
     }
 
