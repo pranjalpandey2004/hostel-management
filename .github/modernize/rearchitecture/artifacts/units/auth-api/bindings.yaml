@@ -1,0 +1,27 @@
+unit: auth-api
+bindings:
+  - type: route-declaration
+    name: "POST /api/auth/register"
+    source_loc: "backend/src/routes/auth.routes.js:7"
+    target: registerUser
+    must_appear_in_target: true
+    notes: "Express router mounted under /api/auth."
+  - type: route-declaration
+    name: "POST /api/auth/login"
+    source_loc: "backend/src/routes/auth.routes.js:8"
+    target: loginUser
+    must_appear_in_target: true
+    notes: "Express router mounted under /api/auth."
+runtime_config:
+  - key: MONGO_URI
+    source_loc: "backend/src/config/db.js:8"
+    source: env
+    default_value: ""
+    must_appear_in_target: true
+    notes: "MongoDB connection string."
+  - key: JWT_SECRET
+    source_loc: "backend/src/controllers/auth.controller.js:34"
+    source: env
+    default_value: ""
+    must_appear_in_target: true
+    notes: "JWT signing secret; never commit its value."

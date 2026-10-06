@@ -1,0 +1,23 @@
+unit: resident-login-page
+side_effects:
+  - source_loc: "frontend/src/Login.jsx:21"
+    effect: "POST submitted credentials to the auth API."
+    must_preserve: true
+branches:
+  - source_loc: "frontend/src/Login.jsx:37"
+    condition: "The request succeeds or fails."
+    behavior: "Current implementation logs response or logs an exception; no user-visible state or navigation exists."
+    must_preserve: true
+error_paths:
+  - source_loc: "frontend/src/Login.jsx:39"
+    trigger: "Network or fetch failure."
+    outcome: "Console error only."
+    contract: "No user-visible error contract currently exists."
+    must_preserve: true
+concurrency:
+  model: async
+  tx_boundary:
+    source_loc: "frontend/src/Login.jsx:21"
+    scope: "One fetch request per form submission."
+    isolation: none
+    must_preserve: true

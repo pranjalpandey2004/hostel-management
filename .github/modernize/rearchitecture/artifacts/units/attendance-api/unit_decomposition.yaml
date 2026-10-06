@@ -1,0 +1,8 @@
+unit: attendance-api
+commit: false
+candidate_splits:
+  - name: attendance-command-and-query
+    drivers:
+      - "marking is a command while history is a query"
+      - "future admin reporting"
+    rationale: "A history/query unit should be added when the resident dashboard is implemented."

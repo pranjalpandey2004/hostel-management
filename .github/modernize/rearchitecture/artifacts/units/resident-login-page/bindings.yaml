@@ -1,0 +1,15 @@
+unit: resident-login-page
+bindings:
+  - type: route-declaration
+    name: "React route /login"
+    source_loc: "frontend/src/App.jsx:13"
+    target: Login
+    must_appear_in_target: true
+    notes: "Rendered through BrowserRouter."
+runtime_config:
+  - key: backend API base URL
+    source_loc: "frontend/src/Login.jsx:26"
+    source: code
+    default_value: "http://localhost:5000"
+    must_appear_in_target: true
+    notes: "Should become environment-driven before deployment."

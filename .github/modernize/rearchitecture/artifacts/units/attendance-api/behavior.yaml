@@ -1,0 +1,23 @@
+unit: attendance-api
+side_effects:
+  - source_loc: "backend/src/controllers/attendance.controller.js:21"
+    effect: "Create a present Attendance document for the authenticated user."
+    must_preserve: true
+branches:
+  - source_loc: "backend/src/controllers/attendance.controller.js:12"
+    condition: "Attendance already exists for the user and current day."
+    behavior: "Return HTTP 400 and do not create another record."
+    must_preserve: true
+error_paths:
+  - source_loc: "backend/src/controllers/attendance.controller.js:30"
+    trigger: "Unexpected attendance persistence failure."
+    outcome: "Return HTTP 500 with message."
+    contract: "HTTP 500 JSON { message }"
+    must_preserve: true
+concurrency:
+  model: async
+  tx_boundary:
+    source_loc: "backend/src/controllers/attendance.controller.js:3"
+    scope: "Find-then-create is not an atomic transaction."
+    isolation: unspecified
+    must_preserve: true

@@ -1,0 +1,8 @@
+unit: resident-login-page
+commit: false
+candidate_splits:
+  - name: auth-form-and-session-provider
+    drivers:
+      - "token persistence"
+      - "protected route navigation"
+    rationale: "A shared session provider becomes justified when authenticated pages are added."

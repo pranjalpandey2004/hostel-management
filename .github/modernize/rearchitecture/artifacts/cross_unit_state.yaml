@@ -1,0 +1,25 @@
+flows:
+  - name: jwt-token-to-protected-request
+    writer:
+      unit: auth-api
+      location: "backend/src/controllers/auth.controller.js:34"
+    reader:
+      unit: resident-login-page
+      location: "frontend/src/Login.jsx:21"
+    channel: "HTTP response token; frontend persistence is not currently implemented for login."
+    pairing: unmatched
+    must_preserve: true
+    must_confirm: runtime
+    verification_hint: "Successful login must persist the token and use it on protected API requests."
+  - name: jwt-token-to-attendance-request
+    writer:
+      unit: resident-signup-page
+      location: "frontend/src/Signup.jsx:52"
+    reader:
+      unit: attendance-api
+      location: "backend/src/middleware/auth.middleware.js:5"
+    channel: localStorage token to Authorization bearer header
+    pairing: unmatched
+    must_preserve: true
+    must_confirm: runtime
+    verification_hint: "Registration currently stores a token, but no client request currently consumes it."

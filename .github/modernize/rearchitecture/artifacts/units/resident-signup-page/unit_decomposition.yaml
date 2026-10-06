@@ -1,0 +1,8 @@
+unit: resident-signup-page
+commit: false
+candidate_splits:
+  - name: shared-auth-form
+    drivers:
+      - "same visual and API patterns as login"
+      - "shared validation and session behavior"
+    rationale: "Extract only after login and registration behavior are made consistent."

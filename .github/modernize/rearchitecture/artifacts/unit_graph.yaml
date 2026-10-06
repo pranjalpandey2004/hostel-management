@@ -1,0 +1,71 @@
+units:
+  - name: auth-api
+    trigger: api
+    trigger_detail: "POST /api/auth/register and POST /api/auth/login"
+    source_anchors:
+      - path: backend/src/routes/auth.routes.js
+        line: 7
+      - path: backend/src/controllers/auth.controller.js
+        line: 7
+    exported_signature:
+      - method: "POST /api/auth/register"
+        source_loc: "backend/src/routes/auth.routes.js:7"
+        stability: must_preserve
+      - method: "POST /api/auth/login"
+        source_loc: "backend/src/routes/auth.routes.js:8"
+        stability: must_preserve
+    dynamic_entrypoints: []
+    depends_on: []
+    shared_refs: []
+  - name: resident-login-page
+    trigger: page
+    trigger_detail: "GET /login in the React client"
+    source_anchors:
+      - path: frontend/src/Login.jsx
+        line: 5
+    exported_signature: []
+    dynamic_entrypoints: []
+    depends_on:
+      - unit: auth-api
+        via: "POST /api/auth/login"
+    shared_refs: []
+  - name: resident-signup-page
+    trigger: page
+    trigger_detail: "GET /signup in the React client"
+    source_anchors:
+      - path: frontend/src/Signup.jsx
+        line: 4
+    exported_signature: []
+    dynamic_entrypoints: []
+    depends_on:
+      - unit: auth-api
+        via: "POST /api/auth/register"
+    shared_refs: []
+  - name: attendance-api
+    trigger: api
+    trigger_detail: "POST /api/attendance/mark"
+    source_anchors:
+      - path: backend/src/routes/attendance.routes.js
+        line: 9
+      - path: backend/src/controllers/attendance.controller.js
+        line: 3
+    exported_signature:
+      - method: "POST /api/attendance/mark"
+        source_loc: "backend/src/routes/attendance.routes.js:9"
+        stability: must_preserve
+    dynamic_entrypoints: []
+    depends_on: []
+    shared_refs: []
+  - name: protected-user-api
+    trigger: api
+    trigger_detail: "GET /protected with a bearer JWT"
+    source_anchors:
+      - path: backend/src/app.js
+        line: 25
+    exported_signature:
+      - method: "GET /protected"
+        source_loc: "backend/src/app.js:25"
+        stability: may_change
+    dynamic_entrypoints: []
+    depends_on: []
+    shared_refs: []

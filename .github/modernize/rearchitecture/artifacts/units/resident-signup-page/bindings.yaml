@@ -1,0 +1,15 @@
+unit: resident-signup-page
+bindings:
+  - type: route-declaration
+    name: "React route /signup"
+    source_loc: "frontend/src/App.jsx:11"
+    target: Signup
+    must_appear_in_target: true
+    notes: "Rendered through BrowserRouter."
+runtime_config:
+  - key: backend API base URL
+    source_loc: "frontend/src/Signup.jsx:33"
+    source: code
+    default_value: "http://localhost:5000"
+    must_appear_in_target: true
+    notes: "Should become environment-driven before deployment."

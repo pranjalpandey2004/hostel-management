@@ -1,0 +1,30 @@
+unit: resident-signup-page
+side_effects:
+  - source_loc: "frontend/src/Signup.jsx:32"
+    effect: "POST registration form data to the auth API."
+    must_preserve: true
+  - source_loc: "frontend/src/Signup.jsx:52"
+    effect: "Persist returned JWT in localStorage."
+    must_preserve: true
+branches:
+  - source_loc: "frontend/src/Signup.jsx:45"
+    condition: "The API returns a non-2xx response."
+    behavior: "Show API message or Registration failed."
+    must_preserve: true
+  - source_loc: "frontend/src/Signup.jsx:48"
+    condition: "Registration succeeds."
+    behavior: "Show success message and clear the form."
+    must_preserve: true
+error_paths:
+  - source_loc: "frontend/src/Signup.jsx:63"
+    trigger: "Network or fetch failure."
+    outcome: "Show Unable to connect to server."
+    contract: "Visible error message."
+    must_preserve: true
+concurrency:
+  model: async
+  tx_boundary:
+    source_loc: "frontend/src/Signup.jsx:24"
+    scope: "One async request with loading state per submission."
+    isolation: none
+    must_preserve: true

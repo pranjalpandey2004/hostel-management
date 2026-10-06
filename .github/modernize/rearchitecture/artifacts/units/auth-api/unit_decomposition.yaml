@@ -1,0 +1,8 @@
+unit: auth-api
+commit: false
+candidate_splits:
+  - name: separate-registration-and-login-services
+    drivers:
+      - "different validation and error branches"
+      - "different frontend consumers"
+    rationale: "Consider only if auth behavior grows beyond the current small controller."

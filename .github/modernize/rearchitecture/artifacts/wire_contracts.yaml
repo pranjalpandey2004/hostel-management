@@ -1,0 +1,49 @@
+contracts:
+  - name: register-user
+    unit: auth-api
+    type: rest
+    stability: must_preserve
+    source_loc: "backend/src/routes/auth.routes.js:7"
+    contract:
+      method: POST
+      path: /api/auth/register
+      request: "{ name, email, password }"
+      response: "201 { message, token }"
+      error: "400 { message } for duplicate; 500 { message } for server failure"
+      auth: none
+    target_contract:
+      method: "POST /api/auth/register"
+      notes: "Preserve request keys, JWT response, and duplicate-user status."
+    semantic_divergence: []
+  - name: login-user
+    unit: auth-api
+    type: rest
+    stability: must_preserve
+    source_loc: "backend/src/routes/auth.routes.js:8"
+    contract:
+      method: POST
+      path: /api/auth/login
+      request: "{ email, password }"
+      response: "200 { message, token }"
+      error: "400 { message } for invalid credentials; 500 { message } for server failure"
+      auth: none
+    target_contract:
+      method: "POST /api/auth/login"
+      notes: "Preserve bearer-token-compatible JWT response."
+    semantic_divergence: []
+  - name: mark-attendance
+    unit: attendance-api
+    type: rest
+    stability: must_preserve
+    source_loc: "backend/src/routes/attendance.routes.js:9"
+    contract:
+      method: POST
+      path: /api/attendance/mark
+      request: "no body; bearer JWT required"
+      response: "201 { message, attendance }"
+      error: "401 auth errors; 403 role errors; 400 duplicate-day error; 500 server failure"
+      auth: "Bearer JWT with role user"
+    target_contract:
+      method: "POST /api/attendance/mark"
+      notes: "Keep authenticated user identity as the attendance owner."
+    semantic_divergence: []

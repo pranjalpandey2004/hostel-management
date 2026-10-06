@@ -1,0 +1,15 @@
+unit: attendance-api
+bindings:
+  - type: route-declaration
+    name: "POST /api/attendance/mark"
+    source_loc: "backend/src/routes/attendance.routes.js:9"
+    target: markAttendance
+    must_appear_in_target: true
+    notes: "Requires auth middleware and user role middleware."
+  - type: filter
+    name: "Bearer auth and user role"
+    source_loc: "backend/src/routes/attendance.routes.js:11"
+    target: "authMiddleware -> roleMiddleware(['user'])"
+    must_appear_in_target: true
+    notes: "Only authenticated users can mark attendance."
+runtime_config: []

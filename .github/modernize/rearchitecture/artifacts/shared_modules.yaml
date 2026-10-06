@@ -1,0 +1,20 @@
+shared_modules:
+  - name: bearer-auth-middleware
+    path: backend/src/middleware/auth.middleware.js
+    used_by_units:
+      - attendance-api
+      - protected-user-api
+    fields:
+      - name: req.user.id
+        type: JWT subject identifier
+      - name: req.user.role
+        type: JWT role claim
+    migration_strategy: "Keep one middleware boundary; all protected routes consume its req.user contract."
+  - name: role-middleware
+    path: backend/src/middleware/role.middleware.js
+    used_by_units:
+      - attendance-api
+    fields:
+      - name: req.user.role
+        type: role claim
+    migration_strategy: "Reuse for future admin/resident route authorization."
